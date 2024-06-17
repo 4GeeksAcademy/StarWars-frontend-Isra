@@ -1,26 +1,33 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
+import { CharacterCard } from "../component/characterCard";
+import { CarouselItems } from "../component/CarrouselItems";
+import "../../styles/starwars.css";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+  useEffect(() => {
+    actions.loadData();
+    console.log(store.characters);
+  }, []);
+
+  return (
+    <div className=" d-flex justify-content-center text-center mt-5 ">
+      <ul>
+        {store.characters.map((character) => {
+          <li>{character.name}</li>;
+        })}
+      </ul>
+
+      {/* {store.characters.map((character) => (
+        <CharacterCard
+          img={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
+          name={character.name}
+        />
+      ))} */}
+      {/* <CarouselItems characters={store.characters} /> */}
+    </div>
+  );
 };
