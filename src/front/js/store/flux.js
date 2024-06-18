@@ -16,31 +16,41 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      fetchProcedures: async (typeofData) => {
+      fetchProcedures: async (typeOfData) => {
+        const localStorageKey = `swapi_${typeOfData}`;
+        const cachedData = localStorage.getItem(localStorageKey);
+
+        if (cachedData) {
+          setStore({
+            [typeOfData]: JSON.parse(cachedData),
+          });
+          return;
+        }
+
         let url = "";
-        if (typeofData === "characters") {
+        if (typeOfData === "characters") {
           url = "https://www.swapi.tech/api/people";
         } else {
-          url = `https://www.swapi.tech/api/${typeofData}`;
+          url = `https://www.swapi.tech/api/${typeOfData}`;
         }
+
         try {
           const dataResponse = await fetch(url);
           if (!dataResponse.ok) {
             throw Error(dataResponse.status);
           }
           const data = await dataResponse.json();
-          //Data details
 
-          const dataDatails = data.results.map(async (data) => {
+          const dataDetails = data.results.map(async (item) => {
             try {
-              const dataResponseP = await fetch(data.url);
+              const dataResponseP = await fetch(item.url);
               if (!dataResponseP.ok) {
                 throw Error(dataResponseP);
               }
               const individualData = await dataResponseP.json();
               return {
                 ...individualData.result.properties,
-                descripiton: individualData.result.descripiton,
+                description: individualData.result.description,
                 id: individualData.result._id,
                 uid: individualData.result.uid,
               };
@@ -49,39 +59,18 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           });
 
-          const dataWithDetail = await Promise.all(dataDatails);
+          const dataWithDetail = await Promise.all(dataDetails);
           console.log(dataWithDetail);
 
           setStore({
-            [typeofData]: dataWithDetail,
+            [typeOfData]: dataWithDetail,
           });
+
+          localStorage.setItem(localStorageKey, JSON.stringify(dataWithDetail));
         } catch (error) {
           console.log("Error in type of data ", error);
         }
       },
-
-      // getCharacterfromAPI: async () => {
-      //   try {
-      //     const respuesta = await fetch("https://swapi.tech/api/people");
-      //     const dataCharacters = await respuesta.json();
-      //     const charactersAPI = dataCharacters.results;
-
-      //     setStore({ characters: charactersAPI });
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
-      // },
-      // getPlanetsfromAPI: async () => {
-      //   try {
-      //     const respuesta = await fetch("https://swapi.tech/api/planets");
-      //     const dataPlanet = await respuesta.json();
-      //     const PlanetsAPI = dataPlanet.results;
-
-      //     setStore({ planets: PlanetsAPI });
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
-      // },
     },
   };
 };

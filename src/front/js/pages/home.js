@@ -10,17 +10,25 @@ export const Home = () => {
 
   useEffect(() => {
     actions.loadData();
-    console.log(store.characters);
   }, []);
 
   return (
     <div className=" d-flex justify-content-center text-center mt-5 ">
       <ul>
-        {store.characters.map((character) => {
-          <li>{character.name}</li>;
-        })}
+        {store.characters.map((character) => (
+          <li>{character.name}</li>
+        ))}
       </ul>
-
+      <ul>
+        {store.planets.map((planet) => (
+          <li>{planet.name}</li>
+        ))}
+      </ul>
+      <ul>
+        {store.vehicles.map((vehicle) => (
+          <li>{vehicle.name}</li>
+        ))}
+      </ul>
       {/* {store.characters.map((character) => (
         <CharacterCard
           img={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
