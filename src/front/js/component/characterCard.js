@@ -7,7 +7,6 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
   const style = {
     backgroundImage: `url(${img})`,
     backgroundSize: "cover",
-
     backgroundRepeat: "no-repeat",
     backdropPosition: "center",
   };
