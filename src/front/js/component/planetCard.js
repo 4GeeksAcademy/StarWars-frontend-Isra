@@ -41,10 +41,7 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
                 <p className="text-white">Terrain: {terrain}</p>
                 <p className="text-white">Population: {population}</p>
               </div>
-              <Link
-                className="btn btn-outline-warning"
-                to={`/single/${type}/${uid}`}
-              >
+              <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
                 <span className=" bg-light-subtle">Learn more</span>
               </Link>
               <span className="btn btn-outline-danger mx-2">
