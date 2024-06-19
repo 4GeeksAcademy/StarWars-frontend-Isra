@@ -22,7 +22,7 @@ export const Vehicles = () => {
               img={`https://starwars-visualguide.com/assets/img/vehicles/${vehicle.uid}.jpg`}
               name={vehicle.name}
               model={vehicle.model}
-              passengers={vehicle.passengers}
+              vehicleClass={vehicle.vehicle_class}
               type={"vehicles"}
               uid={vehicle.uid}
             />

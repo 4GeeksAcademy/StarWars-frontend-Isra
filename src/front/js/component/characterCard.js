@@ -19,7 +19,7 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
     width: "100%",
   };
   return (
-    <div className="card mx-2 mb-1" style={{ minWidth: "16rem" }}>
+    <div className="card mx-2 mb-1" style={{ minWidth: "18rem" }}>
       <div style={style} className="d-flex align-items-end ">
         <div style={blur} className="mx-auto">
           <figure className="mt-5">
@@ -34,8 +34,12 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
                 {name}
               </figcaption>
               <div>
-                <p className="text-white">Gender: {gender}</p>
-                <p className="text-white">Age: {age}</p>
+                <p className="text-warning">
+                  Gender: <span className="text-white">{gender}</span>
+                </p>
+                <p className="text-warning">
+                  Age: <span className="text-white">{age}</span>
+                </p>
               </div>
               <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
                 <span className=" bg-light-subtle">Learn more</span>

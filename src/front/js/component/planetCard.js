@@ -22,7 +22,7 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
     event.target.src = Tatooine;
   }
   return (
-    <div className="card mx-2 mb-1" style={{ minWidth: "16rem" }}>
+    <div className="card mx-2 mb-1" style={{ minWidth: "18rem" }}>
       <div style={style} className="d-flex align-items-end ">
         <div style={blur} className="mx-auto">
           <figure className="mt-5">
@@ -38,8 +38,12 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
                 {name}
               </figcaption>
               <div>
-                <p className="text-white">Terrain: {terrain}</p>
-                <p className="text-white">Population: {population}</p>
+                <p className="text-warning">
+                  Terrain: <span className="text-white">{terrain} </span>{" "}
+                </p>
+                <p className="text-warning">
+                  Population: <span className="text-white">{population}</span>{" "}
+                </p>
               </div>
               <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
                 <span className=" bg-light-subtle">Learn more</span>

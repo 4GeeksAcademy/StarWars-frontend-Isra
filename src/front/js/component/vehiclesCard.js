@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/starwars.css";
 
-export const VehiclesCard = ({ img, name, model, passengers, type, uid }) => {
+export const VehiclesCard = ({ img, name, model, vehicleClass, type, uid }) => {
   type == "vehicle" ? (type = "vehicle") : "";
   const style = {
     backgroundImage: `url(${img})`,
@@ -19,7 +19,7 @@ export const VehiclesCard = ({ img, name, model, passengers, type, uid }) => {
   };
 
   return (
-    <div className="card mx-2 mb-1" style={{ minWidth: "16rem" }}>
+    <div className="card mx-2 mb-1" style={{ minWidth: "18rem" }}>
       <div style={style} className="d-flex align-items-end ">
         <div style={blur} className="mx-auto">
           <figure className="mt-5">
@@ -34,8 +34,13 @@ export const VehiclesCard = ({ img, name, model, passengers, type, uid }) => {
                 {name}
               </figcaption>
               <div>
-                <p className="text-white">Model: {model}</p>
-                <p className="text-white">Passengers: {passengers}</p>
+                <p className="text-warning">
+                  Model: <span className="text-white">{model}</span>
+                </p>
+                <p className="text-warning">
+                  Vehicle Class:{" "}
+                  <span className="text-white">{vehicleClass}</span>
+                </p>
               </div>
               <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
                 <span className=" bg-light-subtle">Learn more</span>
