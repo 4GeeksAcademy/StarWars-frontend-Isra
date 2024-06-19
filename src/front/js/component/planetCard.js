@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/starwars.css";
 import Tatooine from "../../img/Tatooine_TPM.webp";
 
 export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
@@ -23,7 +22,7 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
     event.target.src = Tatooine;
   }
   return (
-    <div className="card mx-2" style={{ minWidth: "16rem" }}>
+    <div className="card mx-2 mb-1" style={{ minWidth: "16rem" }}>
       <div style={style} className="d-flex align-items-end ">
         <div style={blur} className="mx-auto">
           <figure className="mt-5">
@@ -48,6 +47,9 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
               >
                 <span className=" bg-light-subtle">Learn more</span>
               </Link>
+              <span className="btn btn-outline-danger mx-2">
+                <i className="fa-regular fa-heart"></i>
+              </span>
             </div>
           </figure>
         </div>

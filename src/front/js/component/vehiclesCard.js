@@ -19,7 +19,7 @@ export const VehiclesCard = ({ img, name, model, passengers, type, uid }) => {
   };
 
   return (
-    <div className="card mx-2" style={{ minWidth: "16rem" }}>
+    <div className="card mx-2 mb-1" style={{ minWidth: "16rem" }}>
       <div style={style} className="d-flex align-items-end ">
         <div style={blur} className="mx-auto">
           <figure className="mt-5">
@@ -37,12 +37,12 @@ export const VehiclesCard = ({ img, name, model, passengers, type, uid }) => {
                 <p className="text-white">Model: {model}</p>
                 <p className="text-white">Passengers: {passengers}</p>
               </div>
-              <Link
-                className="btn btn-outline-warning"
-                to={`/single/${type}/${uid}`}
-              >
+              <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
                 <span className=" bg-light-subtle">Learn more</span>
               </Link>
+              <span className="btn btn-outline-danger mx-2">
+                <i className="fa-regular fa-heart"></i>
+              </span>
             </div>
           </figure>
         </div>

@@ -13,7 +13,7 @@ export const Planets = () => {
 
   return (
     <>
-      <h1 className="text-center mt-2">Planets</h1>
+      <h1 className="text-center text-white mt-2">Planets</h1>
       <div className=" d-flex justify-content-center text-center mt-5 ">
         <div className="container d-flex overflow-auto ">
           {store.planets.map((planet) => (
