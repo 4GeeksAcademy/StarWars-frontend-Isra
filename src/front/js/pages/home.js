@@ -14,7 +14,7 @@ export const Home = () => {
 
   return (
     <>
-      <h1 className="text-center mt-2">Characters</h1>
+      <h1 className="text-center mt-2 text-white">Characters</h1>
       <div className=" d-flex justify-content-center text-center mt-5 ">
         <div className="container d-flex overflow-auto ">
           {store.characters.map((character) => (

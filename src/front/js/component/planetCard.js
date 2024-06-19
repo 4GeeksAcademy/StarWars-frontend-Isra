@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/starwars.css";
+import Tatooine from "../../img/Tatooine_TPM.webp";
 
-export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
-  type == "people" ? (type = "characters") : "";
+export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
+  type == "planets" ? (type = "planets") : "";
   const style = {
-    backgroundImage: `url(${img})`,
+    backgroundImage: name === "Tatooine" ? `url(${Tatooine})` : `url(${img})`,
     backgroundSize: "cover",
-
     backgroundRepeat: "no-repeat",
     backdropPosition: "center",
   };
@@ -18,6 +18,10 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
     borderRadius: "0.3rem",
     width: "100%",
   };
+
+  function handleErrorOfImg(event) {
+    event.target.src = Tatooine;
+  }
   return (
     <div className="card mx-2" style={{ minWidth: "16rem" }}>
       <div style={style} className="d-flex align-items-end ">
@@ -28,14 +32,15 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
               src={img}
               alt={name}
               style={{ filter: "drop-shadow(0 0 0.75rem white)" }}
+              onError={handleErrorOfImg}
             />
             <div className=" align-items-center ">
               <figcaption className="text-warning my-3 bg-secondary-tertiary fs-4">
                 {name}
               </figcaption>
               <div>
-                <p className="text-white">Gender: {gender}</p>
-                <p className="text-white">Age: {age}</p>
+                <p className="text-white">Terrain: {terrain}</p>
+                <p className="text-white">Population: {population}</p>
               </div>
               <Link
                 className="btn btn-outline-warning"

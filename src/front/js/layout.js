@@ -8,6 +8,7 @@ import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
+import { Planets } from "./pages/planets";
 
 //create your first component
 const Layout = () => {
@@ -25,6 +26,7 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/planets" element={<Planets />} />
             <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
