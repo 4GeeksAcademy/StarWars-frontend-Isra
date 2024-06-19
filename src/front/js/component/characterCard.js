@@ -1,29 +1,51 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
+import "../../styles/starwars.css";
 
-export const CharacterCard = (props) => {
-  const { store, actions } = useContext(Context);
+export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
+  type == "people" ? (type = "characters") : "";
+  const style = {
+    backgroundImage: `url(${img})`,
+    backgroundSize: "cover",
 
+    backgroundRepeat: "no-repeat",
+    backdropPosition: "center",
+  };
+  const blur = {
+    backdropFilter: "blur(9px) saturate(180%)",
+    backgroundColor: "rgba(17, 25, 40, 0.1)",
+    padding: "0.5rem",
+    borderRadius: "0.3rem",
+    width: "100%",
+  };
   return (
-    <div className="card" style={{ width: "280px", height: "80vh" }}>
-      <img
-        src={props.img}
-        className="card-img-top"
-        alt="img1"
-        style={{ objectFit: "fill" }}
-      />
-      <div className="card-body">
-        <h5 className="card-title">{props.name}</h5>
-        <div className="card-text ">
-          <p>Gender:</p>
-          <p>Hair:</p>
-          <p>Age:</p>
-          <p>Eyes:</p>
+    <div className="card mx-2" style={{ minWidth: "20rem" }}>
+      <div style={style} className="d-flex align-items-end ">
+        <div style={blur} className="mx-auto">
+          <figure className="mt-5">
+            <img
+              className="img-fluid rounded"
+              src={img}
+              alt={name}
+              style={{ filter: "drop-shadow(0 0 0.75rem white)" }}
+            />
+            <div className=" align-items-center ">
+              <figcaption className="text-warning my-3 bg-secondary-tertiary fs-4">
+                {name}
+              </figcaption>
+              <div>
+                <p className="text-white">Gender: {gender}</p>
+                <p className="text-white">Age: {age}</p>
+              </div>
+              <Link
+                className="btn btn-outline-warning"
+                to={`/single/${type}/${uid}`}
+              >
+                <span className=" bg-light-subtle">Learn more</span>
+              </Link>
+            </div>
+          </figure>
         </div>
-        <a href="#" className="btn btn-primary">
-          Learn More
-        </a>
       </div>
     </div>
   );
