@@ -31,6 +31,7 @@ export const SingleCharacter = () => {
       actions.loadData();
     }
   }, [id, store.characters]);
+
   return (
     <div className="d-flex justify-content-center align-items-center mt-5">
       <div

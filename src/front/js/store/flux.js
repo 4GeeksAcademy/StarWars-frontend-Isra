@@ -3,6 +3,9 @@ const getState = ({ getStore, getActions, setStore }) => ({
     characters: [],
     planets: [],
     vehicles: [],
+    favoritesCharacters: [],
+    favoritesPlanets: [],
+    favoritesVehicles: [],
   },
   actions: {
     loadData: () => {
@@ -78,6 +81,41 @@ const getState = ({ getStore, getActions, setStore }) => ({
         details[key] = item[value];
       }
       setDetails(details);
+    },
+
+    addFavoriteItem: (id, typeOfData) => {
+      const item = getStore()[typeOfData.toLowerCase()].find(
+        (item) => item.uid === id
+      );
+      const favoriteKey = "favorites" + typeOfData;
+      console.log(item);
+      console.log(favoriteKey);
+      setStore({
+        [favoriteKey]: getStore()[favoriteKey].concat(item),
+      });
+      console.log(getStore(favoriteKey));
+    },
+    removeFavoriteItem: (id, typeOfData) => {
+      const favoriteKey = "favorites" + typeOfData;
+      const newListFavorite = getStore()[favoriteKey].filter((item) => {
+        return item.uid != id;
+      });
+      console.log(newListFavorite);
+
+      setStore({ [favoriteKey]: newListFavorite });
+      console.log(getStore(favoriteKey));
+    },
+
+    checkIsFavoriteItem: (id, typeOfData) => {
+      const item = getStore()[typeOfData.toLowerCase()].find(
+        (item) => item.uid == id
+      );
+      const favoriteKey = "favorites" + typeOfData;
+      if (getStore()[favoriteKey].some((fav) => fav.uid == item.uid)) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 });

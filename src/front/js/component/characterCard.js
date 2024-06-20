@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/starwars.css";
+import { Context } from "../store/appContext";
 
 export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
+  const { store, actions } = useContext(Context);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(actions.checkIsFavoriteItem(uid, "Characters"));
+  }, [store.favoritesCharacters]);
+
   type == "people" ? (type = "characters") : "";
   const style = {
     backgroundImage: `url(${img})`,
@@ -18,7 +26,7 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
     width: "100%",
   };
   return (
-    <div className="card mx-2 mb-1" style={{ minWidth: "18rem" }}>
+    <div className="card mx-2 mb-1" style={{ minWidth: "15rem" }}>
       <div style={style} className="d-flex align-items-end ">
         <div style={blur} className="mx-auto">
           <figure className="mt-5">
@@ -40,12 +48,27 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
                   Age: <span className="text-white">{age}</span>
                 </p>
               </div>
-              <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
-                <span className=" bg-light-subtle">Learn more</span>
+              <Link to={`/${type}/${uid}`}>
+                <button className=" btn btn-outline-warning">Learn more</button>
               </Link>
-              <span className="btn btn-outline-danger mx-2">
-                <i className="fa-regular fa-heart"></i>
-              </span>
+              <button
+                className="btn btn-outline-danger mx-2"
+                onClick={() => {
+                  if (isFavorite) {
+                    actions.removeFavoriteItem(uid, "Characters");
+                    console.log(store.favoritesCharacters);
+                  } else {
+                    actions.addFavoriteItem(uid, "Characters");
+                    console.log(store.favoritesCharacters);
+                  }
+                }}
+              >
+                <i
+                  className={
+                    isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                  }
+                ></i>
+              </button>
             </div>
           </figure>
         </div>
