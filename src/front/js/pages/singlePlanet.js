@@ -18,6 +18,8 @@ export const SinglePlanet = () => {
     surfaceWater: "",
   });
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
   useEffect(() => {
     if (store.planets.length > 0) {
       actions.loadSingleView(id, setPlanetDetail, "planet", {
@@ -32,10 +34,11 @@ export const SinglePlanet = () => {
         surfaceWater: "surface_water",
         uid: "uid",
       });
+      setIsFavorite(actions.checkIsFavoriteItem(id, "Planets"));
     } else {
       actions.loadData();
     }
-  }, [id, store.planets]);
+  }, [id, store.planets, store.favoritesPlanets]);
 
   function handleErrorOfImg(event) {
     event.target.src = Tatooine;
@@ -91,6 +94,27 @@ export const SinglePlanet = () => {
                   <small className="text-danger">Water Surface</small>
                   <p className="text-white">{planetDetails.surfaceWater}</p>
                 </div>
+              </div>
+              <div>
+                <button
+                  className="btn btn-outline-danger mx-2"
+                  onClick={() => {
+                    if (isFavorite) {
+                      actions.removeFavoriteItem(id, "Planets");
+                      console.log(store.favoritesPlanets);
+                    } else {
+                      actions.addFavoriteItem(id, "Planets");
+                      console.log(store.favoritesPlanets);
+                    }
+                  }}
+                >
+                  <i
+                    className={
+                      isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                    }
+                  ></i>{" "}
+                  Add to Favorite
+                </button>
               </div>
             </div>
           </div>

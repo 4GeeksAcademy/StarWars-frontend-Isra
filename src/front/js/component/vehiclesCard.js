@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/starwars.css";
+import { Context } from "../store/appContext";
 
 export const VehiclesCard = ({ img, name, model, vehicleClass, type, uid }) => {
+  const { store, actions } = useContext(Context);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(actions.checkIsFavoriteItem(uid, "Vehicles"));
+  }, [store.favoritesVehicles]);
+
   type == "vehicle" ? (type = "vehicle") : "";
   const style = {
     backgroundImage: `url(${img})`,
@@ -43,12 +51,27 @@ export const VehiclesCard = ({ img, name, model, vehicleClass, type, uid }) => {
                   <span className="text-white">{vehicleClass}</span>
                 </p>
               </div>
-              <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
-                <span className=" bg-light-subtle">Learn more</span>
+              <Link to={`/${type}/${uid}`}>
+                <button className=" btn btn-outline-warning">Learn more</button>
               </Link>
-              <span className="btn btn-outline-danger mx-2">
-                <i className="fa-regular fa-heart"></i>
-              </span>
+              <button
+                className="btn btn-outline-danger mx-2"
+                onClick={() => {
+                  if (isFavorite) {
+                    actions.removeFavoriteItem(uid, "Vehicles");
+                    console.log(store.favoritesVehicles);
+                  } else {
+                    actions.addFavoriteItem(uid, "Vehicles");
+                    console.log(store.favoritesVehicles);
+                  }
+                }}
+              >
+                <i
+                  className={
+                    isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                  }
+                ></i>
+              </button>
             </div>
           </figure>
         </div>

@@ -73,6 +73,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
         console.log("Error in type of data ", error);
       }
     },
+
     loadSingleView: (id, setDetails, typeOfData, dataSet) => {
       const item = getStore()[typeOfData + "s"].find((item) => item.uid === id);
       console.log(item);
@@ -107,11 +108,8 @@ const getState = ({ getStore, getActions, setStore }) => ({
     },
 
     checkIsFavoriteItem: (id, typeOfData) => {
-      const item = getStore()[typeOfData.toLowerCase()].find(
-        (item) => item.uid == id
-      );
       const favoriteKey = "favorites" + typeOfData;
-      if (getStore()[favoriteKey].some((fav) => fav.uid == item.uid)) {
+      if (getStore()[favoriteKey].some((fav) => fav.uid == id)) {
         return true;
       } else {
         return false;

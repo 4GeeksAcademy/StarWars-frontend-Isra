@@ -14,6 +14,7 @@ export const SingleCharacter = () => {
     height: "",
     eyeColor: "",
   });
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (store.characters.length > 0) {
@@ -27,10 +28,11 @@ export const SingleCharacter = () => {
         eyeColor: "eye_color",
         uid: "uid",
       });
+      setIsFavorite(actions.checkIsFavoriteItem(id, "Characters"));
     } else {
       actions.loadData();
     }
-  }, [id, store.characters]);
+  }, [id, store.characters, store.favoritesCharacters]);
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-5">
@@ -75,6 +77,27 @@ export const SingleCharacter = () => {
                   <small className="text-danger">Eye Color</small>
                   <p className="text-white">{characterDetails.eyeColor}</p>
                 </div>
+              </div>
+              <div>
+                <button
+                  className="btn btn-outline-danger mx-2"
+                  onClick={() => {
+                    if (isFavorite) {
+                      actions.removeFavoriteItem(id, "Characters");
+                      console.log(store.favoritesCharacters);
+                    } else {
+                      actions.addFavoriteItem(id, "Characters");
+                      console.log(store.favoritesCharacters);
+                    }
+                  }}
+                >
+                  <i
+                    className={
+                      isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                    }
+                  ></i>{" "}
+                  Add to Favorite
+                </button>
               </div>
             </div>
           </div>

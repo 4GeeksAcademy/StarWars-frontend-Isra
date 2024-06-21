@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Tatooine from "../../img/Tatooine_TPM.webp";
+import { Context } from "../store/appContext";
 
 export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
+  const { store, actions } = useContext(Context);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(actions.checkIsFavoriteItem(uid, "Planets"));
+  }, [store.favoritesPlanets]);
+
   type == "planets" ? (type = "planets") : "";
   const style = {
     backgroundImage: name === "Tatooine" ? `url(${Tatooine})` : `url(${img})`,
@@ -46,12 +54,27 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
                   Population: <span className="text-white">{population}</span>{" "}
                 </p>
               </div>
-              <Link className="btn btn-outline-warning" to={`/${type}/${uid}`}>
-                <span className=" bg-light-subtle">Learn more</span>
+              <Link to={`/${type}/${uid}`}>
+                <button className=" btn btn-outline-warning">Learn more</button>
               </Link>
-              <span className="btn btn-outline-danger mx-2">
-                <i className="fa-regular fa-heart"></i>
-              </span>
+              <button
+                className="btn btn-outline-danger mx-2"
+                onClick={() => {
+                  if (isFavorite) {
+                    actions.removeFavoriteItem(uid, "Planets");
+                    console.log(store.favoritesPlanets);
+                  } else {
+                    actions.addFavoriteItem(uid, "Planets");
+                    console.log(store.favoritesPlanets);
+                  }
+                }}
+              >
+                <i
+                  className={
+                    isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                  }
+                ></i>
+              </button>
             </div>
           </figure>
         </div>

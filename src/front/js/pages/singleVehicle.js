@@ -17,6 +17,8 @@ export const SingleVehicle = () => {
     maxSpeed: "",
   });
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
   useEffect(() => {
     if (store.vehicles.length > 0) {
       actions.loadSingleView(id, setVehicleDetail, "vehicle", {
@@ -31,10 +33,11 @@ export const SingleVehicle = () => {
         maxSpeed: "max_atmosphering_speed",
         uid: "uid",
       });
+      setIsFavorite(actions.checkIsFavoriteItem(id, "Vehicles"));
     } else {
       actions.loadData();
     }
-  }, [id, store.vehicles]);
+  }, [id, store.vehicles, store.favoritesVehicles]);
   return (
     <div className="d-flex justify-content-center align-items-center mt-5">
       <div
@@ -84,6 +87,27 @@ export const SingleVehicle = () => {
                   <small className="text-danger">Max speed in atmosphere</small>
                   <p className="text-white">{vehicleDetails.maxSpeed}</p>
                 </div>
+              </div>
+              <div>
+                <button
+                  className="btn btn-outline-danger mx-2"
+                  onClick={() => {
+                    if (isFavorite) {
+                      actions.removeFavoriteItem(id, "Vehicles");
+                      console.log(store.favoritesVehicles);
+                    } else {
+                      actions.addFavoriteItem(id, "Vehicles");
+                      console.log(store.favoritesVehicles);
+                    }
+                  }}
+                >
+                  <i
+                    className={
+                      isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                    }
+                  ></i>{" "}
+                  Add to Favorite
+                </button>
               </div>
             </div>
           </div>
