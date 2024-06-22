@@ -48,18 +48,18 @@ export const SearchBar = () => {
         />
         {showSuggestions && store.suggestions.length > 0 && (
           <div
-            className="dropdown-menu show position-absolute"
+            className="dropdown-menu show position-absolute starwars-bg-favorite-drop"
             style={{ zIndex: 999, width: "100%", top: "100%", left: 0 }}
           >
-            <div className="list-group">
+            <div className="list-group bg-favorite-drop text-white">
               {store.suggestions.map((item, index) => (
-                <button
+                <span
                   key={index}
-                  className="list-group-item list-group-item-action"
+                  className="list-group-item list-group-item-action starwars-bg-favorite-drop text-white starwars-point-cursor"
                   onClick={() => handleSuggestionClick(item)}
                 >
                   {item.name}
-                </button>
+                </span>
               ))}
             </div>
           </div>

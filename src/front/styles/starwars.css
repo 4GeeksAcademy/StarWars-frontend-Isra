@@ -6,3 +6,28 @@
   background-color: #a02733;
   border-radius: 50%;
 }
+.starwars-bg-favorite-drop {
+  background: rgb(0, 0, 0, 0.7);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1, 0.7) 0%,
+    rgba(80, 80, 96, 1, 0.7) 35%,
+    rgba(92, 91, 91, 1, 0.7) 100%
+  );
+  border: 1px white solid;
+}
+
+.starwars-point-cursor {
+  cursor: pointer;
+}
+
+.starwars-point-cursor:hover {
+  background: rgb(0, 0, 0, 0.7);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1, 0.7) 0%,
+    rgba(80, 80, 96, 1, 0.7) 35%,
+    rgba(92, 91, 91, 1, 0.7) 100%
+  );
+  cursor: pointer;
+}

@@ -64,15 +64,21 @@ export const Navbar = () => {
               {favoritesNum}
             </span>
           </button>
-          <ul
-            className="dropdown-menu text-white"
-            style={{ backgroundColor: "transparent" }}
-          >
+          <ul className="dropdown-menu text-white starwars-bg-favorite-drop">
             <ul className="list-group border-0">
               <p className="m-1 p-1 fs-6 starwars-text-active">Characters</p>
-              <li className="list-group-item p-0 rounded-0">
+              <li
+                className="list-group-item p-0 rounded-0"
+                style={{
+                  backgroundColor: "transparent",
+                  color: "white",
+                  border: "1px white solid",
+                }}
+              >
                 {store.favoritesCharacters.length == 0 ? (
-                  <p className="dropdown-item m-0 ">Add characters</p>
+                  <p className="dropdown-item m-0  text-white starwars-point-cursor">
+                    Add characters
+                  </p>
                 ) : (
                   store.favoritesCharacters.map((character, index) => (
                     <div
@@ -91,7 +97,7 @@ export const Navbar = () => {
                         <FaMasksTheater /> {character.name}
                       </Link>
                       <FaTrashAlt
-                        className="mx-2"
+                        className="mx-2 starwars-point-cursor"
                         onClick={() =>
                           actions.removeFavoriteItem(
                             character.uid,
@@ -106,9 +112,18 @@ export const Navbar = () => {
             </ul>
             <ul className="list-group border-0 ">
               <p className="m-1 p-1 fs-6 starwars-text-active">Planets</p>
-              <li className="list-group-item p-0 rounded-0">
+              <li
+                className="list-group-item p-0 rounded-0"
+                style={{
+                  backgroundColor: "transparent",
+                  color: "white",
+                  border: "1px white solid",
+                }}
+              >
                 {store.favoritesPlanets.length == 0 ? (
-                  <p className="dropdown-item m-0 ">Add planets</p>
+                  <p className="dropdown-item m-0 text-white starwars-point-cursor">
+                    Add planets
+                  </p>
                 ) : (
                   store.favoritesPlanets.map((planet, index) => (
                     <div
@@ -116,13 +131,17 @@ export const Navbar = () => {
                       key={index}
                     >
                       <Link
+                        style={{
+                          backgroundColor: "transparent",
+                          color: "white",
+                        }}
                         to={`planets/${planet.uid}`}
                         className="dropdown-item"
                       >
                         <GiRingedPlanet /> {planet.name}
                       </Link>
                       <FaTrashAlt
-                        className="mx-2"
+                        className="mx-2 starwars-point-cursor"
                         onClick={() =>
                           actions.removeFavoriteItem(planet.uid, "Planets")
                         }
@@ -134,9 +153,18 @@ export const Navbar = () => {
             </ul>
             <ul className="list-group border-0">
               <p className="m-1 p-1 fs-6 starwars-text-active">Vehicles</p>
-              <li className="list-group-item p-0 rounded-0">
+              <li
+                className="list-group-item p-0 rounded-0"
+                style={{
+                  backgroundColor: "transparent",
+                  color: "white",
+                  border: "1px white solid",
+                }}
+              >
                 {store.favoritesVehicles.length == 0 ? (
-                  <p className="dropdown-item m-0 ">Add vehicles</p>
+                  <p className="dropdown-item m-0 text-white starwars-point-cursor">
+                    Add vehicles
+                  </p>
                 ) : (
                   store.favoritesVehicles.map((vehicle, index) => (
                     <div
@@ -144,13 +172,17 @@ export const Navbar = () => {
                       key={index}
                     >
                       <Link
+                        style={{
+                          backgroundColor: "transparent",
+                          color: "white",
+                        }}
                         to={`vehicles/${vehicle.uid}`}
                         className="dropdown-item"
                       >
                         <FaPlaceOfWorship /> {vehicle.name}
                       </Link>
                       <FaTrashAlt
-                        className="mx-2"
+                        className="mx-2 starwars-point-cursor"
                         onClick={() =>
                           actions.removeFavoriteItem(vehicle.uid, "Vehicles")
                         }
