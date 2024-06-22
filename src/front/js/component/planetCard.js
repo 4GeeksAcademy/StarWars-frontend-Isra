@@ -25,6 +25,7 @@ export const PlanetCard = ({ img, name, terrain, population, type, uid }) => {
     borderRadius: "0.3rem",
     width: "100%",
     height: "72vh",
+    maxHeight: "570px",
   };
 
   function handleErrorOfImg(event) {

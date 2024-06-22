@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => ({
     favoritesCharacters: [],
     favoritesPlanets: [],
     favoritesVehicles: [],
+    suggestions: [],
   },
   actions: {
     loadData: () => {
@@ -89,22 +90,21 @@ const getState = ({ getStore, getActions, setStore }) => ({
         (item) => item.uid === id
       );
       const favoriteKey = "favorites" + typeOfData;
-      console.log(item);
-      console.log(favoriteKey);
+      localStorage.setItem(
+        favoriteKey,
+        JSON.stringify(getStore()[favoriteKey].concat(item))
+      );
       setStore({
         [favoriteKey]: getStore()[favoriteKey].concat(item),
       });
-      console.log(getStore(favoriteKey));
     },
     removeFavoriteItem: (id, typeOfData) => {
       const favoriteKey = "favorites" + typeOfData;
       const newListFavorite = getStore()[favoriteKey].filter((item) => {
         return item.uid != id;
       });
-      console.log(newListFavorite);
-
+      localStorage.setItem(favoriteKey, JSON.stringify(newListFavorite));
       setStore({ [favoriteKey]: newListFavorite });
-      console.log(getStore(favoriteKey));
     },
 
     checkIsFavoriteItem: (id, typeOfData) => {
@@ -113,6 +113,45 @@ const getState = ({ getStore, getActions, setStore }) => ({
         return true;
       } else {
         return false;
+      }
+    },
+
+    fetchFavoriteLocalStorage: () => {
+      setStore({
+        favoritesCharacters:
+          JSON.parse(localStorage.getItem("favoritesCharacters")) || [],
+        favoritesPlanets:
+          JSON.parse(localStorage.getItem("favoritesPlanets")) || [],
+        favoritesVehicles:
+          JSON.parse(localStorage.getItem("favoritesVehicles")) || [],
+      });
+    },
+
+    autocomplete: (query) => {
+      const store = getStore();
+      if (query.length > 0) {
+        const filteredCharacters = store.characters.filter((character) =>
+          character.name.toLowerCase().includes(query.toLowerCase())
+        );
+        const filteredPlanets = store.planets.filter((planet) =>
+          planet.name.toLowerCase().includes(query.toLowerCase())
+        );
+        const filteredVehicles = store.vehicles.filter((vehicle) =>
+          vehicle.name.toLowerCase().includes(query.toLowerCase())
+        );
+
+        setStore({
+          suggestions: [
+            ...filteredCharacters.map((item) => ({
+              ...item,
+              type: "characters",
+            })),
+            ...filteredPlanets.map((item) => ({ ...item, type: "planets" })),
+            ...filteredVehicles.map((item) => ({ ...item, type: "vehicles" })),
+          ],
+        });
+      } else {
+        setStore({ suggestions: [] });
       }
     },
   },

@@ -6,11 +6,7 @@ import { CharacterCard } from "../component/characterCard";
 import "../../styles/starwars.css";
 
 export const Home = () => {
-  const { store, actions } = useContext(Context);
-
-  useEffect(() => {
-    actions.loadData();
-  }, []);
+  const { store } = useContext(Context);
 
   return (
     <>

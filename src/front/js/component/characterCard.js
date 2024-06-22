@@ -25,7 +25,7 @@ export const CharacterCard = ({ img, name, gender, age, type, uid }) => {
     borderRadius: "0.3rem",
     width: "100%",
   };
-  
+
   return (
     <div className="card mx-2 mb-1" style={{ minWidth: "15rem" }}>
       <div style={style} className="d-flex align-items-end ">

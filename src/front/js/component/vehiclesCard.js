@@ -25,6 +25,7 @@ export const VehiclesCard = ({ img, name, model, vehicleClass, type, uid }) => {
     borderRadius: "0.3rem",
     width: "100%",
     height: "62vh",
+    maxHeight: "540px",
   };
 
   return (
