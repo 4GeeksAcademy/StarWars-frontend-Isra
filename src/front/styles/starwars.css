@@ -20,7 +20,7 @@
 .starwars-point-cursor {
   cursor: pointer;
 }
-
+/* eST */
 .starwars-point-cursor:hover {
   background: rgb(0, 0, 0, 0.7);
   background: radial-gradient(
