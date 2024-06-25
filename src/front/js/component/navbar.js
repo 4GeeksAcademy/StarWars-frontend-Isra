@@ -51,21 +51,28 @@ export const Navbar = () => {
           </Link>
           <SearchBar />
         </div>
-
+        {/* Dropdown de favoritos que conecta con el boton*/}
         <div className="btn-group">
           <button
             type="button"
             className="btn btn-danger dropdown-toggle"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            data-bs-auto-close="outside"
           >
             Favorites {""}
             <span className="badge starwars-bg-color text-white">
               {favoritesNum}
             </span>
           </button>
-          <ul className="dropdown-menu text-white starwars-bg-favorite-drop">
-            <ul className="list-group border-0">
+          <ul
+            className="dropdown-menu text-white starwars-bg-favorite-drop"
+            data-bs-config='{"autoClose":"outside"}'
+          >
+            <ul
+              className="list-group border-0"
+              data-bs-config='{"autoClose":"outside"}'
+            >
               <p className="m-1 p-1 fs-6 starwars-text-active">Characters</p>
               <li
                 className="list-group-item p-0 rounded-0"
@@ -98,19 +105,23 @@ export const Navbar = () => {
                       </Link>
                       <FaTrashAlt
                         className="mx-2 starwars-point-cursor"
-                        onClick={() =>
+                        onClick={(event) => {
+                          event.stopPropagation();
                           actions.removeFavoriteItem(
                             character.uid,
                             "Characters"
-                          )
-                        }
+                          );
+                        }}
                       />
                     </div>
                   ))
                 )}
               </li>
             </ul>
-            <ul className="list-group border-0 ">
+            <ul
+              className="list-group border-0 "
+              data-bs-config='{"autoClose":"outside"}'
+            >
               <p className="m-1 p-1 fs-6 starwars-text-active">Planets</p>
               <li
                 className="list-group-item p-0 rounded-0"
@@ -142,16 +153,20 @@ export const Navbar = () => {
                       </Link>
                       <FaTrashAlt
                         className="mx-2 starwars-point-cursor"
-                        onClick={() =>
-                          actions.removeFavoriteItem(planet.uid, "Planets")
-                        }
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          actions.removeFavoriteItem(planet.uid, "Planets");
+                        }}
                       />
                     </div>
                   ))
                 )}
               </li>
             </ul>
-            <ul className="list-group border-0">
+            <ul
+              className="list-group border-0"
+              data-bs-config='{"autoClose":"outside"}'
+            >
               <p className="m-1 p-1 fs-6 starwars-text-active">Vehicles</p>
               <li
                 className="list-group-item p-0 rounded-0"
@@ -183,9 +198,10 @@ export const Navbar = () => {
                       </Link>
                       <FaTrashAlt
                         className="mx-2 starwars-point-cursor"
-                        onClick={() =>
-                          actions.removeFavoriteItem(vehicle.uid, "Vehicles")
-                        }
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          actions.removeFavoriteItem(vehicle.uid, "Vehicles");
+                        }}
                       />
                     </div>
                   ))
