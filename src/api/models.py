@@ -6,7 +6,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(50), unique=False, nullable=False)
+    password = db.Column(db.String(50), unique=False, nullable=False) 
+    favorites= db.relationship('Favorites', backref='user', lazy=True)
 
     def __repr__(self):
         return '<User %r>' % self.id 
@@ -19,6 +20,13 @@ class User(db.Model):
             # No añadimos la contraseña al serialize, ya que es un riesgo de seguridad
         }
 
+class Favorites(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    favorite_type=db.Column(db.Enum('character','vehicles','planet', name='favorite_type'), nullable=False)
+    favorite_id=db.Column(db.Integer, nullable=False)
+
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
@@ -30,7 +38,8 @@ class Character(db.Model):
     description = db.Column(db.String(500))
     image_url = db.Column(db.String(500))
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'), nullable=False)
-    planet = db.relationship('Planet', backref='characters', lazy=True)
+    vehicle = db.relationship('Vehicle', backref='character', lazy=True)
+
 
     def __repr__(self):
         return '<Character %r>' % self.id
@@ -61,6 +70,7 @@ class Planet(db.Model):
     diameter = db.Column(db.Integer, unique=False, nullable=False)
     description = db.Column(db.String(500))
     image_url = db.Column(db.String(500))
+    character = db.relationship('Character', backref='planet', lazy=True)
 
     def __repr__(self):
         return '<Planet %r>' % self.id
@@ -93,7 +103,7 @@ class Vehicle(db.Model):
     description = db.Column(db.String(500))
     image_url = db.Column(db.String(500))
     pilot_id = db.Column(db.Integer, db.ForeignKey('character.id'))
-    character = db.relationship('Character', backref='vehicles', lazy=True)
+    
     
     def __repr__(self):
         return '<Vehicle %r>' % self.id
@@ -115,28 +125,4 @@ class Vehicle(db.Model):
             "description": self.description,
             "image_url": self.image_url,
             "pilot_id": pilot_name,
-        }
-
-class Favorites(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    character_id = db.Column(db.Integer, db.ForeignKey('character.id'))
-    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
-    vehicle_id = db.Column(db.Integer, db.ForeignKey('vehicle.id'))
-    user = db.relationship('User', backref='favorites', lazy=True)
-    character = db.relationship('Character', backref='favorites', lazy=True)
-    planet = db.relationship('Planet', backref='favorites', lazy=True)
-    vehicle = db.relationship('Vehicle', backref='favorites', lazy=True)
-
-    def __repr__(self):
-        return '<Favorites %r>' % self.user_id
-    
-    def serialize(self):
-        characters = [favorite.character.name for favorite in Favorites.query.filter(Favorites.character_id.isnot(None)).all() if favorite.character]
-        planets = [favorite.planet.name for favorite in Favorites.query.filter(Favorites.planet_id.isnot(None)).all() if favorite.planet]
-        vehicles = [favorite.vehicle.name for favorite in Favorites.query.filter(Favorites.vehicle_id.isnot(None)).all() if favorite.vehicle]
-        return {
-            "character_id": characters,
-            "planets": planets,
-            "vehicle_id": vehicles
         }
