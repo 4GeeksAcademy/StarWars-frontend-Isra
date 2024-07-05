@@ -224,15 +224,14 @@ def edit_character(character_id):
 # Funciona el delete porque borra los datos pero me da un estatus 500   
 @api.route('/characters/<int:character_id>', methods=['DELETE'])
 def delete_character(character_id):
-    character=Character.query.filter_by(id=character_id).first()
+    character=Character.query.filter_by(id = character_id).first()
     if not character:
         raise APIException("Character not found", status_code=404)
-
+    serialized_character = character.serialize()
     db.session.delete(character)
     db.session.commit()
 
-    return jsonify('Character has been deleted successfully',character.serialize()), 200
-
+    return jsonify('Character has been deleted successfully', serialized_character), 200
 
 ################### PLANETS ENDPOINTS ########################
 #------------------- GET ALL PLANETS -------------------------
@@ -270,6 +269,8 @@ def add_planet():
     planet.diameter=body.get('diameter')
     planet.rotation_period=body.get('rotation_period')
     planet.orbital_period=body.get('orbital_period')
+    planet.description=body.get('description')
+    planet.image_url=body.get('image_url')
 
 
     if not planet.name:
@@ -298,7 +299,7 @@ def add_planet():
 #------------------------ EDIT A PLANET -------------------------
 @api.route('/planets/<int:planet_id>', methods=['PUT'])
 def edit_planet(planet_id):
-    planet=Planet.query.filter_by(id=planet_id).first()
+    planet=Planet.query.filter_by(id = planet_id).first()
     if not planet:
         raise APIException("Planet not found", status_code=404)
     
@@ -321,7 +322,8 @@ def edit_planet(planet_id):
 #------------------------ DELETE A PLANET -------------------------
 @api.route('/planets/<int:planet_id>', methods=['DELETE'])
 def delete_planet(planet_id):
-    planet=Planet.query.filter_by(id=planet_id).first()
+    planet=Planet.query.filter_by(id = planet_id).first()
+    print(planet)
     if not planet:
         raise APIException("Planet not found", status_code=404)
 
@@ -406,7 +408,7 @@ def add_vehicle():
 #------------------------ EDIT A VEHICLE -------------------------
 @api.route('/vehicles/<int:vehicle_id>', methods=['PUT'])
 def edit_vehicle(vehicle_id):
-    vehicle=Vehicle.query.filter_by(id=vehicle_id).first()
+    vehicle=Vehicle.query.filter_by(id = vehicle_id).first()
     if not vehicle:
         raise APIException("Vehicle not found", status_code=404)
     
@@ -433,14 +435,15 @@ def edit_vehicle(vehicle_id):
     return jsonify('Planet has been edit successfully',vehicle.serialize()), 200
 
 #------------------------ DELETE A VEHICLE -------------------------
+# Funciona el delete porque borra los datos pero me da un error estatus 500
 @api.route('/vehicles/<int:vehicle_id>', methods=['DELETE'])
 def delete_vehicle(vehicle_id):
-    vehicle=Vehicle.query.filter_by(id=vehicle_id).first()
+    vehicle=Vehicle.query.filter_by(id = vehicle_id).first()
     if not vehicle:
         raise APIException("Vehicle not found", status_code=404)
-
+    serialized_vehicle= vehicle.serialize()
     db.session.delete(vehicle)
     db.session.commit()
 
-    return jsonify('Vehicle has been deleted successfully',vehicle.serialize()), 200    
+    return jsonify('Vehicle has been deleted successfully', serialized_vehicle), 200    
 
