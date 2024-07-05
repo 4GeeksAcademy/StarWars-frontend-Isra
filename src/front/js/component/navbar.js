@@ -70,7 +70,7 @@ export const Navbar = () => {
             data-bs-config='{"autoClose":"outside"}'
           >
             <ul
-              className="list-group border-0"
+              className="list-group border-x-0"
               data-bs-config='{"autoClose":"outside"}'
             >
               <p className="m-1 p-1 fs-6 starwars-text-active">Characters</p>
@@ -119,7 +119,7 @@ export const Navbar = () => {
               </li>
             </ul>
             <ul
-              className="list-group border-0 "
+              className="list-group border-x-0 "
               data-bs-config='{"autoClose":"outside"}'
             >
               <p className="m-1 p-1 fs-6 starwars-text-active">Planets</p>
@@ -164,7 +164,7 @@ export const Navbar = () => {
               </li>
             </ul>
             <ul
-              className="list-group border-0"
+              className="list-group border-x-0"
               data-bs-config='{"autoClose":"outside"}'
             >
               <p className="m-1 p-1 fs-6 starwars-text-active">Vehicles</p>
