@@ -221,7 +221,6 @@ def edit_character(character_id):
     return jsonify('Character has been edit successfully',character.serialize()), 200
 
 #------------------------ DELETE A CHARACTER ------------------------- 
-# Funciona el delete porque borra los datos pero me da un estatus 500   
 @api.route('/characters/<int:character_id>', methods=['DELETE'])
 def delete_character(character_id):
     character=Character.query.filter_by(id = character_id).first()
@@ -435,7 +434,6 @@ def edit_vehicle(vehicle_id):
     return jsonify('Planet has been edit successfully',vehicle.serialize()), 200
 
 #------------------------ DELETE A VEHICLE -------------------------
-# Funciona el delete porque borra los datos pero me da un error estatus 500
 @api.route('/vehicles/<int:vehicle_id>', methods=['DELETE'])
 def delete_vehicle(vehicle_id):
     vehicle=Vehicle.query.filter_by(id = vehicle_id).first()
